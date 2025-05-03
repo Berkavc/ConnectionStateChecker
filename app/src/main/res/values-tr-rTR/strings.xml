@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 1.1) Main -->
+    <string name="main_title">ConnectionStateChecker\'a hoşgeldiniz. Bu uygulama İnternet ve Bluetooth durumunuzu kontrol etmenizi sağlayan bir uygulamadır.</string>
+    <string name="main_enable_title">İzleyici\'yi aktifleştir</string>
+    <string name="permission_denied">İzinler reddedildi. Bazı özellikler çalışmayabilir! Lütfen izinleri veriniz.</string>
+
+    <!-- 1.2) Connectivity Service -->
+    <string name="notification_title">Bağlantılar İzleniyor</string>
+    <string name="notification_text">Wi-Fi ve Bluetooth değişiklikleri izleniyor</string>
+    <string name="wifi_title">Wi-Fi İsmi: %1$s, Ping: %2$ ms</string>
+    <string name="wifi_connected_title">Wi-Fi Bağlı</string>
+    <string name="wifi_disconnected_message">Wi-Fi Bağlantısı Koptu.</string>
+    <string name="bluetooth_on">Bluetooth Açık</string>
+    <string name="bluetooth_off">Bluetooth Kapalı</string>
+    <string name="bluetooth_state_changed">Bluetooth Durumu Değişti</string>
+    <string name="bluetooth_connected">Bluetooth İsmi: %1$s, Durum: Bağlı</string>
+    <string name="bluetooth_disconnected">Bluetooth İsmi: %1$s, Durum: Bağlantı Koptu</string>
+    <string name="bluetooth_connection_changed">Bluetooth Bağlantı Değişti</string>
+    <string name="unknown">Bilinmiyor</string>
+</resources>

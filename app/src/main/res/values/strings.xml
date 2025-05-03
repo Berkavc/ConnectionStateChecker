@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name" translatable="false">ConnectionStateChecker</string>
+
+    <!-- 1.1) Main -->
+    <string name="main_title">Welcome to ConnectionStateChecker home screen. This application allows you to check Internet and Bluetooth states in your device.</string>
+    <string name="main_enable_title">Activate Tracker</string>
+    <string name="permission_denied">"Permissions denied. Some features may not work! Please provide permissions.</string>
+
+    <!-- 1.2) Connectivity Service -->
+    <string name="notification_title">Monitoring Connections</string>
+    <string name="notification_text">Tracking Wi-Fi and Bluetooth changes</string>
+    <string name="wifi_title">Wi-Fi Name: %1$s, Ping: %2$s ms</string>
+    <string name="wifi_connected_title">Wi-Fi Connected</string>
+    <string name="wifi" translatable="false">Wi-Fi</string>
+    <string name="wifi_disconnected_message">Wi-Fi has been disconnected.</string>
+    <string name="bluetooth_on">Bluetooth is ON</string>
+    <string name="bluetooth_off">Bluetooth is OFF</string>
+    <string name="bluetooth_state_changed">Bluetooth State Changed</string>
+    <string name="bluetooth_connected">Bluetooth Name: %1$s, State: Connected</string>
+    <string name="bluetooth_disconnected">Bluetooth Name: %1$s, State: Disconnected</string>
+    <string name="bluetooth_connection_changed">Bluetooth Connection Changed</string>
+    <string name="unknown">Unknown</string>
+</resources>
