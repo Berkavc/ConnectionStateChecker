@@ -1,25 +1,25 @@
 package com.berkavc.connectionstatechecker.main
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.berkavc.connectionstatechecker.INTENT_REBOOT
 import com.berkavc.connectionstatechecker.R
 import com.berkavc.connectionstatechecker.SHARED_PREF_ENABLED
 import com.berkavc.connectionstatechecker.SharedPreference
 import com.berkavc.connectionstatechecker.base.BaseActivity
 import com.berkavc.connectionstatechecker.databinding.ActivityMainBinding
-import com.berkavc.connectionstatechecker.service.ConnectivityService
+import com.berkavc.connectionstatechecker.getPingMs
+import com.berkavc.connectionstatechecker.startConnectivityService
+import com.berkavc.connectionstatechecker.stopConnectivityService
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -49,36 +49,33 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         sharedPreference = SharedPreference(this)
         super.onCreate(savedInstanceState)
-        viewModel.isDeviceRebooted = intent.getBooleanExtra(INTENT_REBOOT, false)
-        if (viewModel.isDeviceRebooted) {
-            if (sharedPreference.getValueBoolean(SHARED_PREF_ENABLED, false)) {
-                startConnectivityService()
-            }
-        } else {
-            stopConnectivityService()
-        }
         checkAndRequestPermissions()
-    }
-
-    override fun onResume() {
-        super.onResume()
         arrangeMainUI()
     }
 
     private fun arrangeMainUI() {
-        binding.switchEnable.setOnCheckedChangeListener(null)
-        binding.switchEnable.isChecked = sharedPreference.getValueBoolean(
+        val isEnabled = sharedPreference.getValueBoolean(
             SHARED_PREF_ENABLED, false
         )
+        binding.switchEnable.isChecked = isEnabled
         binding.switchEnable.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 startConnectivityService()
+                binding.buttonCheckPing.visibility = View.VISIBLE
             } else {
                 stopConnectivityService()
+                binding.buttonCheckPing.visibility = View.GONE
             }
             sharedPreference.saveBooleanSynchronized(SHARED_PREF_ENABLED, isChecked)
         }
+        binding.buttonCheckPing.visibility = if (isEnabled) View.VISIBLE else View.GONE
 
+        binding.buttonCheckPing.setOnClickListener {
+            lifecycleScope.launch {
+                val ping = getPingMs()
+                Toast.makeText(this@MainActivity, getString(R.string.ping, ping), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun checkAndRequestPermissions() {
@@ -87,7 +84,11 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         }
 
         if (missing.isNotEmpty()) {
-            ActivityCompat.requestPermissions(this, missing.toTypedArray(), PERMISSIONS_REQUEST_CODE)
+            ActivityCompat.requestPermissions(
+                this,
+                missing.toTypedArray(),
+                PERMISSIONS_REQUEST_CODE
+            )
         }
     }
 
@@ -98,7 +99,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSIONS_REQUEST_CODE) {
-            val denied = grantResults.indices.filter { grantResults[it] != PackageManager.PERMISSION_GRANTED }
+            val denied =
+                grantResults.indices.filter { grantResults[it] != PackageManager.PERMISSION_GRANTED }
 //            if (denied.isNotEmpty()) {
 //                lifecycleScope.launch {
 //                    binding.switchEnable.isChecked = false
@@ -108,16 +110,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 //                }
 //            }
         }
-    }
-
-    private fun startConnectivityService() {
-        val intent = Intent(this, ConnectivityService::class.java)
-        startForegroundService(intent)
-    }
-
-    private fun stopConnectivityService() {
-        val intent = Intent(this, ConnectivityService::class.java)
-        stopService(intent)
     }
 
     override fun observeViewModel() {}

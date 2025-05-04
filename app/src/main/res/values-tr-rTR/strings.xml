@@ -4,18 +4,28 @@
     <string name="main_title">ConnectionStateChecker\'a hoşgeldiniz. Bu uygulama İnternet ve Bluetooth durumunuzu kontrol etmenizi sağlayan bir uygulamadır.</string>
     <string name="main_enable_title">İzleyici\'yi aktifleştir</string>
     <string name="permission_denied">İzinler reddedildi. Bazı özellikler çalışmayabilir! Lütfen izinleri veriniz.</string>
+    <string name="check_ping">Ping Hesapla</string>
+    <string name="ping">Ping: %1$s ms</string>
 
     <!-- 1.2) Connectivity Service -->
     <string name="notification_title">Bağlantılar İzleniyor</string>
     <string name="notification_text">Wi-Fi ve Bluetooth değişiklikleri izleniyor</string>
     <string name="wifi_title">Wi-Fi İsmi: %1$s, Ping: %2$ ms</string>
     <string name="wifi_connected_title">Wi-Fi Bağlı</string>
-    <string name="wifi_disconnected_message">Wi-Fi Bağlantısı Koptu.</string>
+    <string name="wifi_disconnected_message">Wi-Fi Bağlantısı Koptu</string>
     <string name="bluetooth_on">Bluetooth Açık</string>
     <string name="bluetooth_off">Bluetooth Kapalı</string>
+    <string name="cellular">Hücresel Veri</string>
+    <string name="cellular_connected">Hücresel Veri Bağlı</string>
+    <string name="cellular_disconnected">Hücresel Veri Bağlantısı koptu</string>
+    <string name="cellular_title">Hücresel Veri İsmi: %1$s, Ping: %2$d ms</string>
+    <string name="wifi_on">Wi-Fi Açıldı</string>
+    <string name="wifi_off">Wi-Fi Kapalı</string>
     <string name="bluetooth_state_changed">Bluetooth Durumu Değişti</string>
     <string name="bluetooth_connected">Bluetooth İsmi: %1$s, Durum: Bağlı</string>
     <string name="bluetooth_disconnected">Bluetooth İsmi: %1$s, Durum: Bağlantı Koptu</string>
     <string name="bluetooth_connection_changed">Bluetooth Bağlantı Değişti</string>
+    <string name="network_disconnected">Ağ Bağlantısı kesildi</string>
+    <string name="no_active_network">Aktif Ağ Bağlantısı yok</string>
     <string name="unknown">Bilinmiyor</string>
 </resources>

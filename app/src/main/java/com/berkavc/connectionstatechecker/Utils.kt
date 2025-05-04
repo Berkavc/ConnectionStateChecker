@@ -3,7 +3,13 @@ package com.berkavc.connectionstatechecker
 import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import com.berkavc.connectionstatechecker.service.ConnectivityService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
 
 
@@ -70,4 +76,32 @@ class SharedPreference(context: Context) {
         editor.apply()
     }
 
+}
+
+ fun Context.startConnectivityService() {
+    val intent = Intent(this, ConnectivityService::class.java)
+    startForegroundService(intent)
+}
+
+fun Context.stopConnectivityService() {
+    val intent = Intent(this, ConnectivityService::class.java)
+    stopService(intent)
+}
+
+suspend fun getPingMs(url: String = "http://www.google.com"): Int = withContext(Dispatchers.IO) {
+    try {
+        val startTime = System.nanoTime()
+
+        val connection = URL(url).openConnection() as HttpURLConnection
+        connection.requestMethod = "HEAD"
+        connection.connectTimeout = 1500
+        connection.readTimeout = 1500
+        connection.connect()
+        connection.disconnect()
+
+        val endTime = System.nanoTime()
+        ((endTime - startTime) / 1_000_000).toInt()
+    } catch (e: Exception) {
+        -1
+    }
 }

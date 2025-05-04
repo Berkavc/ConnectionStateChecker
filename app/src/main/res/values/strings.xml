@@ -4,20 +4,30 @@
     <!-- 1.1) Main -->
     <string name="main_title">Welcome to ConnectionStateChecker home screen. This application allows you to check Internet and Bluetooth states in your device.</string>
     <string name="main_enable_title">Activate Tracker</string>
-    <string name="permission_denied">"Permissions denied. Some features may not work! Please provide permissions.</string>
+    <string name="permission_denied">Permissions denied. Some features may not work! Please provide permissions.</string>
+    <string name="check_ping">Check Ping</string>
+    <string name="ping">Ping: %1$s ms</string>
 
     <!-- 1.2) Connectivity Service -->
     <string name="notification_title">Monitoring Connections</string>
     <string name="notification_text">Tracking Wi-Fi and Bluetooth changes</string>
-    <string name="wifi_title">Wi-Fi Name: %1$s, Ping: %2$s ms</string>
+    <string name="wifi_title">Wi-Fi Name: %1$s, Ping: %2$d ms</string>
     <string name="wifi_connected_title">Wi-Fi Connected</string>
     <string name="wifi" translatable="false">Wi-Fi</string>
     <string name="wifi_disconnected_message">Wi-Fi has been disconnected.</string>
     <string name="bluetooth_on">Bluetooth is ON</string>
     <string name="bluetooth_off">Bluetooth is OFF</string>
+    <string name="cellular">Cellular</string>
+    <string name="cellular_connected">Cellular Network connected</string>
+    <string name="cellular_disconnected">Cellular Network disconnected</string>
+    <string name="cellular_title">Cellular Network Name: %1$s, Ping: %2$d ms</string>
+    <string name="wifi_on">Wi-Fi turned ON</string>
+    <string name="wifi_off">Wi-Fi turned OFF</string>
     <string name="bluetooth_state_changed">Bluetooth State Changed</string>
     <string name="bluetooth_connected">Bluetooth Name: %1$s, State: Connected</string>
     <string name="bluetooth_disconnected">Bluetooth Name: %1$s, State: Disconnected</string>
     <string name="bluetooth_connection_changed">Bluetooth Connection Changed</string>
+    <string name="network_disconnected">Network Disconnected</string>
+    <string name="no_active_network">No Active Network</string>
     <string name="unknown">Unknown</string>
 </resources>

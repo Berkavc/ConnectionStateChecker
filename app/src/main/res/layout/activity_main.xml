@@ -80,5 +80,20 @@
             app:switchMinWidth="64dp">
         </androidx.appcompat.widget.SwitchCompat>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonCheckPing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_background_label"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="@string/check_ping"
+            android:layout_marginTop="24dp"
+            android:padding="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/guideline_3"
+            app:layout_constraintTop_toBottomOf="@id/textViewEnableTitle">
+        </androidx.appcompat.widget.AppCompatButton>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

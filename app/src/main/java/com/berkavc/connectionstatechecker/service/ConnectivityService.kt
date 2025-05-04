@@ -36,7 +36,7 @@ class ConnectivityService : Service() {
         val channel = NotificationChannel(
             channelId,
             "Connectivity Service",
-            NotificationManager.IMPORTANCE_LOW
+            NotificationManager.IMPORTANCE_HIGH
         )
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(channel)
