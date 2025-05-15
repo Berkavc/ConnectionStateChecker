@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "42171917957",
+    "project_id": "connectionstatechecker",
+    "storage_bucket": "connectionstatechecker.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42171917957:android:14d8bc581286d00626ebec",
+        "android_client_info": {
+          "package_name": "com.berkavc.connectionstatechecker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4_L6HxQML29bwU2SJ0E5jidCA1nJTc5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

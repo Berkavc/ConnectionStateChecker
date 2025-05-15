@@ -50,5 +50,9 @@
             android:exported="false"
             android:foregroundServiceType="connectedDevice|dataSync"
             tools:ignore="ForegroundServicePermission" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3638832740917075~6763121378" />
     </application>
 </manifest>

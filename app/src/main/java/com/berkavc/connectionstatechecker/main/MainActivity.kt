@@ -19,6 +19,8 @@ import com.berkavc.connectionstatechecker.databinding.ActivityMainBinding
 import com.berkavc.connectionstatechecker.getPingMs
 import com.berkavc.connectionstatechecker.startConnectivityService
 import com.berkavc.connectionstatechecker.stopConnectivityService
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -54,19 +56,21 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     private fun arrangeMainUI() {
+        MobileAds.initialize(this) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
         val isEnabled = sharedPreference.getValueBoolean(
             SHARED_PREF_ENABLED, false
         )
         binding.switchEnable.isChecked = isEnabled
         binding.switchEnable.setOnCheckedChangeListener { buttonView, isChecked ->
+            sharedPreference.saveBooleanSynchronized(SHARED_PREF_ENABLED, isChecked)
             if (isChecked) {
-                startConnectivityService()
-                binding.buttonCheckPing.visibility = View.VISIBLE
+                checkAndRequestPermissions()
             } else {
                 stopConnectivityService()
                 binding.buttonCheckPing.visibility = View.GONE
             }
-            sharedPreference.saveBooleanSynchronized(SHARED_PREF_ENABLED, isChecked)
         }
         binding.buttonCheckPing.visibility = if (isEnabled) View.VISIBLE else View.GONE
 
@@ -75,6 +79,13 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 val ping = getPingMs()
                 Toast.makeText(this@MainActivity, getString(R.string.ping, ping), Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun startService() {
+        if (sharedPreference.getValueBoolean(SHARED_PREF_ENABLED, false)) {
+            startConnectivityService()
+            binding.buttonCheckPing.visibility = View.VISIBLE
         }
     }
 
@@ -89,6 +100,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                 missing.toTypedArray(),
                 PERMISSIONS_REQUEST_CODE
             )
+        } else {
+            startService()
         }
     }
 
@@ -101,15 +114,34 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
         if (requestCode == PERMISSIONS_REQUEST_CODE) {
             val denied =
                 grantResults.indices.filter { grantResults[it] != PackageManager.PERMISSION_GRANTED }
-//            if (denied.isNotEmpty()) {
-//                lifecycleScope.launch {
-//                    binding.switchEnable.isChecked = false
-//                    Toast.makeText(this@MainActivity, getString(R.string.permission_denied), Toast.LENGTH_SHORT).show()
-//                    delay(1250L)
-//                    checkAndRequestPermissions()
-//                }
-//            }
+            if (denied.isNotEmpty()) {
+                lifecycleScope.launch {
+                    binding.switchEnable.isChecked = false
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.permission_denied),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                startService()
+            }
         }
+    }
+
+    override fun onPause() {
+        binding.adView.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.adView.resume()
+    }
+
+    override fun onDestroy() {
+        binding.adView.destroy()
+        super.onDestroy()
     }
 
     override fun observeViewModel() {}
